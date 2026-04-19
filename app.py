@@ -94,3 +94,22 @@ col1.metric("預計年領總額", f"{round(total_div, 2)} 萬")
 col2.metric("每月平均預算", f"{round(total_div/12, 2)} 萬")
 
 st.caption("註：利差大於 0% 代表債券市場正常化，利差越大，長債(00679B)的避險緩衝作用越明顯。")
+# --- 在原有代碼末尾加入 ---
+st.divider()
+st.subheader("📡 市場情緒與債券策略監測")
+
+# 模擬 2026/04 市場數據
+yield_2y = 3.75  # 短端參考
+yield_10y = 4.30 # 長端參考
+spread = round(yield_10y - yield_2y, 2)
+
+st.write(f"當前 10Y-2Y 利差：**{spread}%**")
+
+if spread > 0.4:
+    st.success("✅ 曲線轉趨陡峭：長債避險功能回歸。建議維持 00679B 作為崩盤保險。")
+elif 0 <= spread <= 0.4:
+    st.warning("⚠️ 曲線平坦：經濟擴張末期。短債 00864B 利息誘人，可適度增持領息。")
+else:
+    st.error("🚨 殖利率倒掛：衰退警訊！建議嚴格執行再平衡，保護正二部位。")
+
+st.info("💡 註：目前處於「正常化」階段，長債(00679B)價格波動增加，適合做為低點再平衡的銀彈。")
